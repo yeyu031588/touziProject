@@ -1,80 +1,67 @@
 @extends('layout.admin')
 @section('extendCss')
+    <link rel="stylesheet" href="{{ URL::asset('/css/user.css') }}" media="all" />
 @show
 @section('title', '后台首页')
 @section('content')
-    <div class="container-fluid">
-
-        <div class="side-body">
-            <div class="page-title">
-                <span class="title">用户管理</span>
+    <blockquote class="layui-elem-quote news_search">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="card">
-                        <div class="card-header">
-
-                            <div class="card-title">
-                                <div class="title">列表</div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox"/></th>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>状态</th>
-                                    <th>类型</th>
-                                    <th>注册时间</th>
-                                    <th>注册IP</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if (isset($user))
-
-                                    @forelse($user as $val)
-                                    <tr>
-                                        <th scope="row"><input type="checkbox"/></th>
-                                        <td>{{$val['id']}}</td>
-                                        <td>{{$val['username']}}</td>
-                                        <td>{{$status[$val['status']]}}</td>
-
-                                        <td>{{$val['modelid']}}</td>
-                                        <td>{{date('Y-m-d H:i:s',$val['regdate'])}}</td>
-                                        <td>{{$val['regip']}}</td>
-                                        <td><a href="">编辑</a> |<a href="">删除</a></td>
-                                    </tr>
-                                @empty
-                                @endforelse
-                                @endif
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="pad-wrapper" class="users-list">
-                <div class="pagination pull-right">
-                    <?php echo $user->render(); ?>
-                </div>
-                <!-- end users table -->
-            </div>
+            <a class="layui-btn search_btn">查询</a>
         </div>
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-normal usersAdd_btn">添加用户</a>
+        </div>
+        <div class="layui-inline">
+            <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-mid layui-word-aux"></div>
+        </div>
+    </blockquote>
+    <div class="layui-form users_list">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
+                <th>登录名</th>
+                <th>状态</th>
+
+                <th>邮箱</th>
+                <th>注册IP</th>
+                <th>来源</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody class="users_content">
+
+            @if (isset($user))
+
+            @forelse($user as $val)
+
+                <tr>
+                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['id']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
+                    <td>{{$val['username']}}</td>
+                    <td <?php if($val['status']==0){echo 'style="color:red;"';}?>>{{$status[$val['status']]}}</td>
+                    <td>{{$val['email']}}</td>
+                    <td>{{$val['regip']}}</td>
+                    <td>@if(isset($val['device']) && $val['device'] =='pc') 电脑 @endif @if(isset($val['device']) && $val['device'] =='mobile') 手机 @endif</td>
+                    <td>{{date('Y-m-d H:i:s',$val['regdate'])}}</td>
+                    <td><a href="<?php echo URL::action('Admin\UserController@profile',['id'=>$val['id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['id']}}"><i class="layui-icon"></i> 删除</a></td>
+                </tr>
+            @empty
+            @endforelse
+            @endif
+            </tbody>
+        </table>
+    </div>
+    <div id="page">
+        <?php echo $user->render(); ?>
     </div>
 @endsection
 @section('extendJs')
-    <script>
-        $('.deluser').click(function(){
-            var userid = $(this).attr('cid');
-            $.post('{{url('/Admin/user/drop')}}',{userid:userid},function(data){
-                if(data.status){
-                    location.reload();
-                }
-            },'json')
-        })
-    </script>
+    <script type="text/javascript" src="{{ URL::asset('/js/admin/allUsers.js') }}"></script>
 @endsection

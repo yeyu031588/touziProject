@@ -1,147 +1,81 @@
 @extends('layout.admin')
 @section('extendCss')
-    <link rel="stylesheet" href="/assets/css/compiled/user-profile.css" type="text/css" media="screen" />
+    <style type="text/css">
+        .layui-form-item .layui-inline{ width:33.333%; float:left; margin-right:0; }
+        @media(max-width:1240px){
+            .layui-form-item .layui-inline{ width:100%; float:none; }
+        }
+    </style>
 @show
+
 @section('title', '后台首页')
 @section('content')
-    <div class="container-fluid">
-        <div id="pad-wrapper" class="user-profile">
-            <!-- header -->
-            <div class="row-fluid header">
-                <div class="span8">
-                    <img src="img/contact-profile.png" class="avatar img-circle" />
-                    <h3 class="name"><?php echo $data['username'];?></h3>
-                    <span class="area"><?php echo $data['address'];?></span>
-                </div>
-                <a class="btn-flat icon pull-right delete-user" data-toggle="tooltip" title="Delete user" data-placement="top" >
-                    <i class="icon-trash"></i>
-                </a>
-                <a class="btn-flat icon large pull-right edit" href="<?php echo URL::action('Admin\UserController@modify',['id'=>$_GET['id']]);?>">
-                    编辑用户
-                </a>
+    <form class="layui-form" id='form' style="width:80%;" onsubmit="return false;">
+        <input type="hidden" value="{{$data['id']}}" name="id"/>
+        <input type="hidden" value="{{$data['modelid']}}" name="modelid"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员名</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" value="{{$data['username']}}" readonly>
             </div>
-
-            <div class="row-fluid profile">
-                <!-- bio, new note & orders column -->
-                <div class="span9 bio">
-                    <div class="profile-box">
-                        <!-- biography -->
-                        <div class="span12 section">
-                            <h6>Biography</h6>
-                            <p>There are many variations of passages of Lorem Ipsum available but the majority have humour suffered alteration in believable some formhumour , by injected humour, or randomised words which don't look even slightly believable. </p>
-                        </div>
-
-                        <h6>Recent orders</h6>
-                        <br />
-                        <!-- recent orders table -->
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th class="span2">
-                                    Order ID
-                                </th>
-                                <th class="span3">
-                                    <span class="line"></span>
-                                    Date
-                                </th>
-                                <th class="span3">
-                                    <span class="line"></span>
-                                    Items
-                                </th>
-                                <th class="span3">
-                                    <span class="line"></span>
-                                    Total amount
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- row -->
-                            <tr class="first">
-                                <td>
-                                    <a href="#">#459</a>
-                                </td>
-                                <td>
-                                    Jan 03, 2014
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    $ 3,500.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">#510</a>
-                                </td>
-                                <td>
-                                    Feb 22, 2014
-                                </td>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    $ 800.00
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">#618</a>
-                                </td>
-                                <td>
-                                    Jan 03, 2014
-                                </td>
-                                <td>
-                                    8
-                                </td>
-                                <td>
-                                    $ 3,499.99
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- new comment form -->
-                        <div class="span12 section comment">
-                            <h6>Add a quick note</h6>
-                            <p>Add a note about this user to keep a history of your interactions.</p>
-                            <textarea></textarea>
-                            <a href="#">Attach files</a>
-                            <div class="span12 submit-box pull-right">
-                                <input type="submit" class="btn-glow primary" value="Add Note" />
-                                <span>OR</span>
-                                <input type="reset" value="Cancel" class="reset" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- side address column -->
-                <div class="span3 address pull-right">
-                    <h6><?php echo $data['address'];?></h6>
-                    <iframe width="300" height="133" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=""></iframe>
-                    <ul>
-                        <li>2301 East Lamar Blvd. Suite 140. </li>
-                        <li><?php echo $data['province'];?>, <?php echo $data['city'];?>. <?php echo $data['area'];?>,</li>
-                        <li>Zip Code, TX 76006.</li>
-                        <li class="ico-li">
-                            <i class="ico-phone"></i>
-                            <?php echo $data['mobile'];?>
-                        </li>
-                        <li class="ico-li">
-                            <i class="ico-mail"></i>
-                            <a href="#"><?php echo $data['email'];?></a>
-                        </li>
-                    </ul>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">归属</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input"  value="<?php if($data['modelid'] == 5){echo '个人投资者';}else{echo '机构投资者';}?>" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" value="{{$data['email']}}" name="email">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" placeholder="请输入邮箱" name="password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">注册时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" value="{{date('Y-m-d H:i:s',$data['regdate'])}}" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">注册IP</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" value="{{$data['regip']}}" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <select name="status" class="userStatus">
+                        <option value="1" <?php if($data['status']==1)echo 'selected';?>>审核</option>
+                        <option value="0" <?php if($data['status']==0)echo 'selected';?>>未审核</option>
+                    </select>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" value="{{$data['mobile']}}" name="mobile">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="addUser" id="sub">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
 @endsection
 @section('extendJs')
-    <script>
-        $('.delete-user').click(function(){
-            alert(<?php echo $_GET['id'];?>);
-        })
-    </script>
+    <script type="text/javascript" src="{{ URL::asset('/js/admin/addUser.js') }}"></script>
 @endsection

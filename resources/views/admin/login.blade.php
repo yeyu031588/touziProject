@@ -1,119 +1,40 @@
 <!DOCTYPE html>
-<html class="login-bg">
+<html>
 <head>
-    <title>Detail Admin - Sign in</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- bootstrap -->
-    <link href="./assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="./assets/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
-    <link href="./assets/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
-
-    <!-- global styles -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/layout.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/elements.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/icons.css" />
-
-    <!-- libraries -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/lib/font-awesome.css" />
-
-    <!-- this page specific styles -->
-    <link rel="stylesheet" href="./assets/css/compiled/signin.css" type="text/css" media="screen" />
-
-    <!-- open sans font -->
-    {{--<link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />--}}
-
-    <!--[if lt IE 9]>
-    <!--<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>-->
-    <![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+    <meta charset="utf-8">
+    <title>登录--layui后台管理模板</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="/css/login.css" media="all" />
+</head>
 <body>
-
-
-<!-- background switcher -->
-{{--<div class="bg-switch visible-desktop">--}}
-    {{--<div class="bgs">--}}
-        {{--<a href="#" data-img="landscape.jpg" class="bg active">--}}
-            {{--<img src="./assets/img/bgs/landscape.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="blueish.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/blueish.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="7.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/7.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="8.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/8.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="9.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/9.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="10.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/10.jpg" />--}}
-        {{--</a>--}}
-        {{--<a href="#" data-img="11.jpg" class="bg">--}}
-            {{--<img src="./assets/img/bgs/11.jpg" />--}}
-        {{--</a>--}}
-    {{--</div>--}}
-{{--</div>--}}
-
-
-<div class="row-fluid login-wrapper">
-    <a href="index.html">
-        {{--<img class="logo" src="./assets/img/logo-white.png" />--}}
-    </a>
-    <div class="span4 box">
-        <form action="{{ url('/AdminLogin') }}" method="post">
-            <div class="content-wrap">
-                <h6>登录</h6>
-                @if(count($errors)>0)
-                    <div class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                           {{ $error }}<br>
-                        @endforeach
-                    </div>
-                @endif
-                <input class="span12" type="text" placeholder="账户" name="name"/>
-                <input class="span12" type="password" placeholder="密码"  name="password"/>
-                <a href="#" class="forgot">Forgot password?</a>
-                <div class="remember">
-                    <input id="remember-me" type="checkbox" />
-                    <label for="remember-me">Remember me</label>
-                </div>
-                <button class="btn-glow primary login button">登录</button>
-            </div>
-        </form>
-    </div>
-
-    <div class="span4 no-account">
-        <p>Don't have an account?</p>
-        <a href="signup.html">Sign up</a>
-    </div>
+<video class="video-player" preload="auto" autoplay="autoplay" loop="loop" data-height="1080" data-width="1920" height="1080" width="1920">
+    <source src="login.mp4" type="video/mp4">
+    <!-- 此视频文件为支付宝所有，在此仅供样式参考，如用到商业用途，请自行更换为其他视频或图片，否则造成的任何问题使用者本人承担，谢谢 -->
+</video>
+<div class="video_mask"></div>
+<div class="login">
+    <h1>投鼎-管理登录</h1>
+    <form class="layui-form" action="{{ url('/AdminLogin') }}" method="post">
+        <div class="layui-form-item">
+            <input class="layui-input" name="name" placeholder="用户名" lay-verify="required" type="text" autocomplete="off">
+        </div>
+        <div class="layui-form-item">
+            <input class="layui-input" name="password" placeholder="密码" lay-verify="required" type="password" autocomplete="off">
+        </div>
+        {{--<div class="layui-form-item form_code">--}}
+            {{--<input class="layui-input" name="code" placeholder="验证码" lay-verify="required" type="text" autocomplete="off">--}}
+            {{--<div class="code"><img src="../../images/code.jpg" width="116" height="36"></div>--}}
+        {{--</div>--}}
+        <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登录</button>
+    </form>
 </div>
-
-<!-- scripts -->
-<script src="./assets/js/jquery-latest.js"></script>
-<script src="./assets/js/bootstrap.min.js"></script>
-<script src="./assets/js/theme.js"></script>
-
-<!-- pre load bg imgs -->
-<script type="text/javascript">
-    $("html").css("background-image", "url('./assets/img/bgs/blueish.jpg')");
-    $(function () {
-        // bg switcher
-        var $btns = $(".bg-switch .bg");
-        $btns.click(function (e) {
-            e.preventDefault();
-            $btns.removeClass("active");
-            $(this).addClass("active");
-            var bg = $(this).data("img");
-
-            $("html").css("background-image", "url('./assets/img/bgs/" + bg + "')");
-        });
-
-    });
-</script>
-
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" src="login.js"></script>
 </body>
 </html>

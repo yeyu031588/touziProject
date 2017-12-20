@@ -1,9 +1,8 @@
-@extends('layout.admin')
-@section('extendCss')
-    <link rel="stylesheet" href="{{ URL::asset('/css/user.css') }}" media="all" />
-@show
-@section('title', '后台首页')
-@section('content')
+<?php $__env->startSection('extendCss'); ?>
+    <link rel="stylesheet" href="<?php echo e(URL::asset('/css/user.css')); ?>" media="all" />
+<?php echo $__env->yieldSection(); ?>
+<?php $__env->startSection('title', '后台首页'); ?>
+<?php $__env->startSection('content'); ?>
     <blockquote class="layui-elem-quote news_search">
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal" data-toggle="modal" data-target="#myModal" >添加路由</a>
@@ -12,7 +11,7 @@
             <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
         </div>
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-danger" href="{{url('/Admin/routeGroup')}}">分组管理</a>
+            <a class="layui-btn layui-btn-danger" href="<?php echo e(url('/Admin/routeGroup')); ?>">分组管理</a>
         </div>
         <div class="layui-inline">
             <div class="layui-form-mid layui-word-aux"></div>
@@ -28,7 +27,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="layui-form" id='form' style="width:80%;" onsubmit="return false;">
-                        <input type="hidden" value="{{$data['role_id'] or ''}}" name="role_id"/>
+                        <input type="hidden" value="<?php echo e(isset($data['role_id']) ? $data['role_id'] : ''); ?>" name="role_id"/>
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">分组</label>
@@ -43,13 +42,13 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">标题</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="{{$data['role_name'] or ''}}" name="role_name">
+                                <input type="text" class="layui-input" value="<?php echo e(isset($data['role_name']) ? $data['role_name'] : ''); ?>" name="role_name">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">URL</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="{{$data['role_name'] or ''}}" name="role_name">
+                                <input type="text" class="layui-input" value="<?php echo e(isset($data['role_name']) ? $data['role_name'] : ''); ?>" name="role_name">
                             </div>
                         </div>
 
@@ -87,24 +86,24 @@
             </thead>
             <tbody class="users_content">
 
-            @if (isset($data))
+            <?php if(isset($data)): ?>
 
-                @forelse($data as $val)
+                <?php $__empty_1 = true; foreach($data as $val): $__empty_1 = false; ?>
 
                     <tr>
-                        <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['role_id']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
-                        <td>{{$val['role_name']}}</td>
-                        <td>{{$status[$val['status']]}}</td>
-                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['role_id']}}"><i class="layui-icon"></i> 删除</a></td>
+                        <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="<?php echo e($val['role_id']); ?>"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
+                        <td><?php echo e($val['role_name']); ?></td>
+                        <td><?php echo e($status[$val['status']]); ?></td>
+                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['role_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
                     </tr>
-                @empty
-                @endforelse
-            @endif
+                <?php endforeach; if ($__empty_1): ?>
+                <?php endif; ?>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
-@endsection
-@section('extendJs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('extendJs'); ?>
     <script>
         layui.config({
             base : "js/"
@@ -200,4 +199,5 @@
 
         })
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

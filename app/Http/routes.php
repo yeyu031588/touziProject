@@ -35,8 +35,17 @@ Route::group(['namespace'=>'Admin','middleware'=>'admin'],function(){
     Route::any('/Admin/route','RouteController@routeList');
     Route::any('/Admin/adminuser','UserController@adminUser');
     Route::any('/Admin/adminprofile','UserController@adminprofile');
-    Route::any('/Admin/adminmodify','UserController@adminmodify');
-    Route::any('/Admin/addadmin','UserController@addadmin');
+    Route::post('/Admin/adminmodify','UserController@adminmodify');
+    Route::get('/Admin/addadmin','UserController@addadmin');
+    Route::post('/Admin/dropAdmin','UserController@dropAdmin');
+    Route::get('/Admin/role','UserController@role');
+    Route::post('/Admin/dropRole','UserController@dropRole');
+    Route::any('/Admin/editRole','UserController@editRole');
+    Route::any('/Admin/routes','RouteController@routeList');
+    Route::post('/Admin/editRoute','RouteController@editRoute');
+    Route::post('/Admin/dropRoute/{cid?}','RouteController@dropRoute');
+    Route::any('/Admin/routeGroup','RouteController@routeGroup');
+    Route::any('/Admin/editGroup','RouteController@editGroup');
 
 
     //内容

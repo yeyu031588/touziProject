@@ -152,20 +152,97 @@ class UserController extends Controller
     //管理员
     public function adminUser(){
         $user = DB::table('admin_user')->orderBy('userid','desc')->where(array())->select()->get();
-//        var_dump($user);
-        return View('admin.adminuser',['user'=>$user]);
+        $status = [0=>'未审核',1=>'审核'];
+        $role = [1=>'业务员',2=>'编辑'];
+        return View('admin.adminuser',['user'=>$user,'status'=>$status,'role'=>$role]);
 
     }
 
-    public function addadmin(){
-        echo '添加管理员';
-    }
-
-    public function adminprofile(){
+    public function addadmin(Request $request){
+        return View('admin.adminuser_edit');
 
     }
 
-    public function adminmodify(){
+    public function adminprofile(Request $request){
+        $userid = $request->input('id');
+        $info = DB::table('admin_user')->where(array('userid'=>$userid))->get();
+        $info = current($info);
+        return View('admin.adminuser_edit',['data'=>$info]);
 
+    }
+
+    public function adminmodify(Request $request){
+        $input = $request->all();
+        $data = array(
+            'username' => $input['username'],
+            'role' => $input['role'],
+            'password' => $input['password'],
+            'status' => $input['status'],
+        );
+        if($input['id'] != ''){
+            $result = DB::table('admin_user')->where('userid',$input['id'])->update($data);
+        }else{
+            $result = DB::table('admin_user')->insert($data);
+
+        }
+        if($result !== false){
+            echo json_encode(['status'=>200]);
+            exit;
+        }
+    }
+
+    public function dropAdmin(Request $request){
+        $userid = $request->input('userid');
+        DB::table('admin_user')
+            ->where('userid', $userid)
+            ->delete();
+        return response()->json(array(
+            'status' => 1,
+            'msg' => 'ok',
+        ));
+    }
+
+    public function role(){
+        $status = [0=>'未审核',1=>'审核'];
+        $res = DB::table('admin_role')->orderBy('role_id','desc')->where(array())->select()->get();
+        return View('admin.admin_role',['data'=>$res,'status'=>$status]);
+    }
+
+    public function editRole(Request $request){
+        $input = $request->all();
+        if($request->isMethod('post')){
+            $data = array(
+                'role_name' => $input['role_name'],
+                'status' => $input['status'],
+            );
+            if($input['role_id'] != ''){
+                $result = DB::table('admin_role')->where('role_id',$input['role_id'])->update($data);
+            }else{
+                $result = DB::table('admin_role')->insert($data);
+
+            }
+            if($result !== false){
+                echo json_encode(['status'=>200]);
+                exit;
+            }
+        }
+        $res = [];
+        if(isset($input['id'])){
+            $res = DB::table('admin_role')->where(array('role_id'=>$input['id']))->get();
+            $res = current($res);
+        }
+        return View('admin.edit_role',['data'=>$res]);
+
+    }
+
+    public function dropRole(Request $request){
+        $role_id = $request->input('role_id');
+        DB::table('admin_role')
+            ->where('role_id', $role_id)
+            ->delete();
+        return response()->json(array(
+            'status' => 1,
+            'msg' => 'ok',
+        ));
     }
 }

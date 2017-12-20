@@ -20,6 +20,7 @@
 <script type="text/javascript" src="<?php echo e(URL::asset('/js/jquery-1.11.1.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(URL::asset('/layui/layui.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(URL::asset('/js/anyupload.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(URL::asset('/js/bootstrap.min.js')); ?>"></script>
 <?php echo $__env->yieldContent('extendJs'); ?>
 </body>
 </html>

@@ -20,6 +20,7 @@
 <script type="text/javascript" src="{{ URL::asset('/js/jquery-1.11.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/layui/layui.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/anyupload.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('/js/bootstrap.min.js') }}"></script>
 @yield('extendJs')
 </body>
 </html>

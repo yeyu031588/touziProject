@@ -6,7 +6,7 @@
 @section('content')
     <blockquote class="layui-elem-quote news_search">
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal" href="{{url('/Admin/addadmin')}}">添加用户</a>
+            <a class="layui-btn layui-btn-normal" href="{{url('/Admin/editRole')}}">添加角色</a>
         </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -20,7 +20,6 @@
             <thead>
             <tr>
                 <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-                <th>管理员名</th>
                 <th>角色</th>
                 <th>状态</th>
                 <th>操作</th>
@@ -28,19 +27,18 @@
             </thead>
             <tbody class="users_content">
 
-            @if (isset($user))
+            @if (isset($data))
 
-            @forelse($user as $val)
+                @forelse($data as $val)
 
-                <tr>
-                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['userid']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
-                    <td>{{$val['username']}}</td>
-                    <td>{{$role[$val['role']]}}</td>
-                    <td>{{$status[$val['status']]}}</td>
-                    <td><a href="<?php echo URL::action('Admin\UserController@adminprofile',['id'=>$val['userid']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['userid']}}"><i class="layui-icon"></i> 删除</a></td>
-                </tr>
-            @empty
-            @endforelse
+                    <tr>
+                        <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['role_id']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
+                        <td>{{$val['role_name']}}</td>
+                        <td>{{$status[$val['status']]}}</td>
+                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['role_id']}}"><i class="layui-icon"></i> 删除</a></td>
+                    </tr>
+                @empty
+                @endforelse
             @endif
             </tbody>
         </table>
@@ -79,7 +77,7 @@
                             //删除数据
 
                             for(var j=0;j<$checked.length;j++){
-                                $.post('/Admin/dropAdmin',{userid:$checked[j].value},function(data){
+                                $.post('/Admin/dropRole',{role_id:$checked[j].value},function(data){
                                     if(data.status){
                                         _this.parents("tr").remove();
                                         layer.close(index);
@@ -129,7 +127,7 @@
                 var _this = $(this);
                 layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                     var id = _this.attr("data-id");
-                    $.post('/Admin/dropAdmin',{userid:id},function(data){
+                    $.post('/Admin/dropRole',{role_id:id},function(data){
                         if(data.status){
                             _this.parents("tr").remove();
                             layer.close(index);

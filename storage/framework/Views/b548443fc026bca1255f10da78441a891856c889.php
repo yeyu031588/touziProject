@@ -114,10 +114,10 @@
                 <li class="layui-nav-item"><a href="javascript:;" data-url="page/main.html"><i class="layui-icon">&#xe623;</i>   <cite>后台首页</cite></a></li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>管理员管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/adminuser')); ?>">
-                                <cite>管理员</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user/registerCount')); ?>">
-                                <cite>权限</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/adminuser')); ?>"><cite>管理员</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/role')); ?>"><cite>角色管理</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/routes')); ?>"><cite>路由管理</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user/registerCount')); ?>"><cite>权限管理</cite></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>会员管理</cite></a>

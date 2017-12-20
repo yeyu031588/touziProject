@@ -1,12 +1,11 @@
-@extends('layout.admin')
-@section('extendCss')
-    <link rel="stylesheet" href="{{ URL::asset('/css/user.css') }}" media="all" />
-@show
-@section('title', '后台首页')
-@section('content')
+<?php $__env->startSection('extendCss'); ?>
+    <link rel="stylesheet" href="<?php echo e(URL::asset('/css/user.css')); ?>" media="all" />
+<?php echo $__env->yieldSection(); ?>
+<?php $__env->startSection('title', '后台首页'); ?>
+<?php $__env->startSection('content'); ?>
     <blockquote class="layui-elem-quote news_search">
         <div class="layui-inline">
-            <a class="layui-btn layui-btn-normal" href="{{url('/Admin/addadmin')}}">添加用户</a>
+            <a class="layui-btn layui-btn-normal" href="<?php echo e(url('/Admin/editRole')); ?>">添加角色</a>
         </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -20,7 +19,6 @@
             <thead>
             <tr>
                 <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-                <th>管理员名</th>
                 <th>角色</th>
                 <th>状态</th>
                 <th>操作</th>
@@ -28,25 +26,24 @@
             </thead>
             <tbody class="users_content">
 
-            @if (isset($user))
+            <?php if(isset($data)): ?>
 
-            @forelse($user as $val)
+                <?php $__empty_1 = true; foreach($data as $val): $__empty_1 = false; ?>
 
-                <tr>
-                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['userid']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
-                    <td>{{$val['username']}}</td>
-                    <td>{{$role[$val['role']]}}</td>
-                    <td>{{$status[$val['status']]}}</td>
-                    <td><a href="<?php echo URL::action('Admin\UserController@adminprofile',['id'=>$val['userid']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['userid']}}"><i class="layui-icon"></i> 删除</a></td>
-                </tr>
-            @empty
-            @endforelse
-            @endif
+                    <tr>
+                        <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="<?php echo e($val['role_id']); ?>"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
+                        <td><?php echo e($val['role_name']); ?></td>
+                        <td><?php echo e($status[$val['status']]); ?></td>
+                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['role_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
+                    </tr>
+                <?php endforeach; if ($__empty_1): ?>
+                <?php endif; ?>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
-@endsection
-@section('extendJs')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('extendJs'); ?>
     <script>
         layui.config({
             base : "js/"
@@ -79,7 +76,7 @@
                             //删除数据
 
                             for(var j=0;j<$checked.length;j++){
-                                $.post('/Admin/dropAdmin',{userid:$checked[j].value},function(data){
+                                $.post('/Admin/dropRole',{role_id:$checked[j].value},function(data){
                                     if(data.status){
                                         _this.parents("tr").remove();
                                         layer.close(index);
@@ -129,7 +126,7 @@
                 var _this = $(this);
                 layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                     var id = _this.attr("data-id");
-                    $.post('/Admin/dropAdmin',{userid:id},function(data){
+                    $.post('/Admin/dropRole',{role_id:id},function(data){
                         if(data.status){
                             _this.parents("tr").remove();
                             layer.close(index);
@@ -142,4 +139,5 @@
 
         })
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

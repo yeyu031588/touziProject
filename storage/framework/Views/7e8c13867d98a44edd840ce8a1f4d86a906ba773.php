@@ -32,7 +32,6 @@
                 <th>注册IP</th>
                 <th>来源</th>
                 <th>注册时间</th>
-                <th>注册时间</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -50,7 +49,6 @@
                     <td><?php echo e($val['regip']); ?></td>
                     <td><?php if(isset($val['device']) && $val['device'] =='pc'): ?> 电脑 <?php endif; ?> <?php if(isset($val['device']) && $val['device'] =='mobile'): ?> 手机 <?php endif; ?></td>
                     <td><?php echo e(date('Y-m-d H:i:s',$val['regdate'])); ?></td>
-                    <td><div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>是</em><i></i></div></td>
                     <td><a href="<?php echo URL::action('Admin\UserController@profile',['id'=>$val['id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['id']); ?>"><i class="layui-icon"></i> 删除</a></td>
                 </tr>
             <?php endforeach; if ($__empty_1): ?>

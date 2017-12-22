@@ -20,7 +20,7 @@ class LoginController extends Controller
             $password = $request->input('password');
             $user = DB::table('admin_user')
                         ->where(array('username'=>$name))
-                        ->select('username', 'userid','password')
+                        ->select('username', 'userid','password','role')
                         ->get();
             if(!$user){
                 return redirect('/AdminLogin')->withErrors(array('用户不存在'))->withInput();
@@ -28,6 +28,7 @@ class LoginController extends Controller
 
                 if($user[0]['password'] == md5(md5($password))){
                     $request->session()->set('admin_id',$user[0]['userid']);
+                    $request->session()->set('role',$user[0]['role']);
                     $request->session()->set('admin_name',$user[0]['username']);
                     return redirect('/Admin');
                 }else{

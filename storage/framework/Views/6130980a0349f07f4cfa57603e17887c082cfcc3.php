@@ -23,8 +23,13 @@
                 <label class="layui-form-label">角色</label>
                 <div class="layui-input-block">
                     <select name="role" class="userStatus">
-                        <option value="1" <?php if(isset($data) && $data['role']==1)echo 'selected';?>>业务员</option>
-                        <option value="2" <?php if(isset($data) && $data['role']==2)echo 'selected';?>>编辑</option>
+                        <?php if(isset($role)): ?>
+
+                            <?php $__empty_1 = true; foreach($role as $val): $__empty_1 = false; ?>
+                                <option value="<?php echo e($val['role_id']); ?>" ><?php echo e($val['role_name']); ?></option>
+                            <?php endforeach; if ($__empty_1): ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
             </div>

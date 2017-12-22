@@ -15,7 +15,9 @@ class UserController extends Controller
     //用户列表
     public function index(Request $request)
     {
-        $user = DB::table('member')->orderBy('id','desc')->where(array())->select()->paginate(15);
+        $input = $request->all();
+        $kw = isset($input['kw'])?$input['kw']:'';
+        $user = DB::table('member')->orderBy('id','desc')->where('username', 'like', $kw.'%')->select()->paginate(15);
         $status = ['未审核','已审核'];
         return View('admin.user',['user'=>$user,'status'=>$status]);
     }
@@ -153,8 +155,12 @@ class UserController extends Controller
     public function adminUser(){
         $user = DB::table('admin_user')->orderBy('userid','desc')->where(array())->select()->get();
         $status = [0=>'未审核',1=>'审核'];
-        $role = [1=>'业务员',2=>'编辑'];
-        return View('admin.adminuser',['user'=>$user,'status'=>$status,'role'=>$role]);
+        $role = DB::table('admin_role')->orderBy('role_id','desc')->where(array())->select()->get();
+        $roles = [];
+        foreach($role as $val){
+            $roles[$val['role_id']] = $val['role_name'];
+        }
+        return View('admin.adminuser',['user'=>$user,'status'=>$status,'role'=>$roles]);
 
     }
 
@@ -167,7 +173,8 @@ class UserController extends Controller
         $userid = $request->input('id');
         $info = DB::table('admin_user')->where(array('userid'=>$userid))->get();
         $info = current($info);
-        return View('admin.adminuser_edit',['data'=>$info]);
+        $role = DB::table('admin_role')->orderBy('role_id','desc')->where(array())->select()->get();
+        return View('admin.adminuser_edit',['data'=>$info,'role'=>$role]);
 
     }
 
@@ -176,7 +183,7 @@ class UserController extends Controller
         $data = array(
             'username' => $input['username'],
             'role' => $input['role'],
-            'password' => $input['password'],
+            'password' => md5(md5($input['password'])),
             'status' => $input['status'],
         );
         if($input['id'] != ''){
@@ -231,6 +238,7 @@ class UserController extends Controller
             $res = DB::table('admin_role')->where(array('role_id'=>$input['id']))->get();
             $res = current($res);
         }
+
         return View('admin.edit_role',['data'=>$res]);
 
     }

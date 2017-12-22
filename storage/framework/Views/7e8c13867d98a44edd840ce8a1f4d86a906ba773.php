@@ -5,10 +5,12 @@
 <?php $__env->startSection('content'); ?>
     <blockquote class="layui-elem-quote news_search">
         <div class="layui-inline">
-            <div class="layui-input-inline">
-                <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-            </div>
-            <a class="layui-btn search_btn">查询</a>
+            <form action="" id="searchForm" method="get">
+                <div class="layui-input-inline">
+                    <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="kw">
+                </div>
+                <a class="layui-btn search_btn">查询</a>
+            </form>
         </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal usersAdd_btn">添加用户</a>

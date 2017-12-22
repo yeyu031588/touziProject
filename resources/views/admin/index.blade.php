@@ -91,7 +91,7 @@
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
                         <img src="images/face.jpg" class="layui-circle" width="35" height="35">
-                        <cite>admin</cite>
+                        <cite>{{ Session::get('admin_name') }}</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <!-- <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>-->
@@ -107,7 +107,7 @@
     <div class="layui-side layui-bg-black">
         <div class="user-photo">
             <a class="img" title="我的头像" ><img src="images/face.jpg"></a>
-            <p>你好！<span class="userName">admin</span>, 欢迎登录 </p>
+            <p>你好！<span class="userName">{{ Session::get('admin_name') }}</span>, 欢迎登录 </p>
         </div>
         <div class="navBar layui-side-scroll">
             <ul class="layui-nav layui-nav-tree">
@@ -117,7 +117,6 @@
                         <dd><a href="javascript:;" data-url="{{url('/Admin/adminuser')}}"><cite>管理员</cite></a></dd>
                         <dd><a href="javascript:;" data-url="{{url('/Admin/role')}}"><cite>角色管理</cite></a></dd>
                         <dd><a href="javascript:;" data-url="{{url('/Admin/routes')}}"><cite>路由管理</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/user/registerCount')}}"><cite>权限管理</cite></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>会员管理</cite></a>
@@ -128,48 +127,79 @@
                                 <cite>会员统计</cite></a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/1')}}"><i class="layui-icon">&#xe623;</i> <cite>股权项目</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/26')}}"><i class="layui-icon">&#xe623;</i> <cite>专题栏目</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/3')}}"><i class="layui-icon">&#xe623;</i><cite>三板资讯</cite></a>
+                <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>内容管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/8')}}">
-                                <cite>三板头条</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/9')}}">
-                                <cite>行业解析</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/10')}}">
-                                <cite>政策解读</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/11')}}">
-                                <cite>大咖访谈</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/12')}}">
-                                <cite>学堂</cite></a></dd>
-                    </dl></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/4')}}"><i class="layui-icon">&#xe623;</i><cite>原创研究</cite></a>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/1')}}"><cite>股权项目</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/26')}}"><cite>专题项目</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/5')}}"><cite>视频中心</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/33')}}"><cite>企业栏目</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/3')}}"><cite>三板资讯</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/8')}}"><cite>三板头条</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/9')}}"><cite>行业解析</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/10')}}"><cite>政策解读</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/11')}}"><cite>大咖访谈</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/12')}}"><cite>学堂</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/4')}}"><cite>原创研究</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/13')}}"><cite>三板调研</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/14')}}"><cite>机构观点</cite></a></dd>
+                        <dd><a href="javascript:;"data-url="{{url('/Admin/content/list/15')}}" ><cite>项目分析</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/16')}}"><cite>投资咨询</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/17')}}"><cite>投资要闻</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/18')}}"><cite>投资走向</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/19')}}"><cite>投资百科</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/6')}}"><cite>行情中心</cite></a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>预约评论</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/13')}}">
-                                <cite>三板调研</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/14')}}">
-                                <cite>机构观点</cite></a></dd>
-                        <dd><a href="javascript:;"data-url="{{url('/Admin/content/list/15')}}" >
-                                <cite>项目分析</cite></a></dd>
-                    </dl></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/5')}}"><i class="layui-icon">&#xe623;</i> <cite>视频中心</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/6')}}"><i class="layui-icon">&#xe623;</i> <cite>行情中心</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/16')}}"><i class="layui-icon">&#xe623;</i><cite>投资咨询</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/17')}}">
-                                <cite>投资要闻</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/18')}}">
-                                <cite>投资走向</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="{{url('/Admin/content/list/19')}}">
-                                <cite>投资百科</cite></a></dd>
-                    </dl></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/33')}}"><i class="layui-icon">&#xe623;</i> <cite>企业专栏</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/34')}}"><i class="layui-icon">&#xe623;</i> <cite>搜索栏目</cite></a></li>
+                    <dd><a href="javascript:;" data-url="{{url('/Admin/onlineAppointment')}}"><cite>在线预约</cite></a></dd>
+                    <dd><a href="javascript:;" data-url="{{url('/Admin/commentList')}}"><cite>文章评论</cite></a></dd>
+                    <dd><a href="javascript:;" data-url="{{url('/Admin/complaint')}}"><cite>投诉建议</cite></a></dd>
+                    <dd><a href="javascript:;" data-url="{{url('/Admin/buttonAppointment')}}"><cite>底部预约</cite></a></dd>
+                    </dl>
+                </li>
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/1')}}"><i class="layui-icon">&#xe623;</i> <cite>股权项目</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/26')}}"><i class="layui-icon">&#xe623;</i> <cite>专题栏目</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/3')}}"><i class="layui-icon">&#xe623;</i><cite>三板资讯</cite></a>--}}
+                    {{--<dl class="layui-nav-child">--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/8')}}">--}}
+                                {{--<cite>三板头条</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/9')}}">--}}
+                                {{--<cite>行业解析</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/10')}}">--}}
+                                {{--<cite>政策解读</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/11')}}">--}}
+                                {{--<cite>大咖访谈</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/12')}}">--}}
+                                {{--<cite>学堂</cite></a></dd>--}}
+                    {{--</dl></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/4')}}"><i class="layui-icon">&#xe623;</i><cite>原创研究</cite></a>--}}
+                    {{--<dl class="layui-nav-child">--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/13')}}">--}}
+                                {{--<cite>三板调研</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/14')}}">--}}
+                                {{--<cite>机构观点</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;"data-url="{{url('/Admin/content/list/15')}}" >--}}
+                                {{--<cite>项目分析</cite></a></dd>--}}
+                    {{--</dl></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/5')}}"><i class="layui-icon">&#xe623;</i> <cite>视频中心</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/6')}}"><i class="layui-icon">&#xe623;</i> <cite>行情中心</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/16')}}"><i class="layui-icon">&#xe623;</i><cite>投资咨询</cite></a>--}}
+                    {{--<dl class="layui-nav-child">--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/17')}}">--}}
+                                {{--<cite>投资要闻</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/18')}}">--}}
+                                {{--<cite>投资走向</cite></a></dd>--}}
+                        {{--<dd><a href="javascript:;" data-url="{{url('/Admin/content/list/19')}}">--}}
+                                {{--<cite>投资百科</cite></a></dd>--}}
+                    {{--</dl></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/33')}}"><i class="layui-icon">&#xe623;</i> <cite>企业专栏</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/content/list/34')}}"><i class="layui-icon">&#xe623;</i> <cite>搜索栏目</cite></a></li>--}}
 
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/onlineAppointment')}}"><i class="layui-icon">&#xe623;</i>   <cite>在线预约</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/commentList')}}"><i class="layui-icon">&#xe623;</i>   <cite>文章评论</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/complaint')}}"><i class="layui-icon">&#xe623;</i>   <cite>投诉建议</cite></a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/buttonAppointment')}}"><i class="layui-icon">&#xe623;</i>   <cite>底部预约</cite></a></li>
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/onlineAppointment')}}"><i class="layui-icon">&#xe623;</i>   <cite>在线预约</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/commentList')}}"><i class="layui-icon">&#xe623;</i>   <cite>文章评论</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/complaint')}}"><i class="layui-icon">&#xe623;</i>   <cite>投诉建议</cite></a></li>--}}
+                {{--<li class="layui-nav-item"><a href="javascript:;" data-url="{{url('/Admin/buttonAppointment')}}"><i class="layui-icon">&#xe623;</i>   <cite>底部预约</cite></a></li>--}}
                 <span class="layui-nav-bar" ></span>
             </ul>
 

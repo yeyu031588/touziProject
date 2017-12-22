@@ -9,16 +9,16 @@ layui.config({
 	//查询
 	$(".search_btn").click(function(){
 		var newArray = [];
-		if($(".search_input").val() != ''){
+		//if($(".search_input").val() != ''){
             $('#searchForm').submit();
 			//var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
             //setTimeout(function(){
             //
             //    layer.close(index);
             //},2000);
-		}else{
-			layer.msg("请输入需要查询的内容");
-		}
+		//}else{
+		//	layer.msg("请输入需要查询的内容");
+		//}
 	})
 
 	//添加文章

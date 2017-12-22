@@ -29,13 +29,19 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">ID</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="{{$data['id'] or ''}}" name="group_id" readonly>
+                                <input type="text" class="layui-input" value="" name="group_id" readonly>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">排序</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" value="" name="sort">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">组名</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="{{$data['group'] or ''}}" name="group">
+                                <input type="text" class="layui-input" value="" name="group">
                             </div>
                         </div>
                     </form>
@@ -54,6 +60,7 @@
             <tr>
                 <th>ID</th>
                 <th>分组</th>
+                <th>排序</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -66,7 +73,8 @@
                     <tr>
                         <td>{{$val['id']}}</td>
                         <td>{{$val['group']}}</td>
-                        <td><a data-id="{{$val['id']}}" data-group="{{$val['group']}}" class="layui-btn layui-btn-mini" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['id']}}"><i class="layui-icon"></i> 删除</a></td>
+                        <td>{{$val['sort']}}</td>
+                        <td><a data-id="{{$val['id']}}" data-sort="{{$val['sort']}}" data-group="{{$val['group']}}" class="layui-btn layui-btn-mini" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['id']}}"><i class="layui-icon"></i> 删除</a></td>
                     </tr>
                 @empty
                 @endforelse
@@ -97,6 +105,9 @@
                         if(data.status == '200'){
                             layer.msg("编辑成功");
                             location.reload();
+                        }else{
+                            layer.msg(data.msg);
+
                         }
                     }
                 })
@@ -105,13 +116,27 @@
 
         })
 
+        $("body").on("click",".users_del",function(){  //删除
+            var _this = $(this);
+            layer.confirm('确定删除此分组？',{icon:3, title:'提示信息'},function(index){
+                var id = _this.attr("data-id");
+                $.post('/Admin/dropGroup',{id:id},function(data){
+                    if(data.status){
+                        _this.parents("tr").remove();
+                        layer.close(index);
+                    }
+                },'json')
+
+            });
+        })
 
         $('#myModal').on('show.bs.modal', function (event) {
             var a = $(event.relatedTarget)
-            var id = a.data('id'),group = a.data('group');
+            var id = a.data('id'),group = a.data('group'),sort = a.data('sort');
             if(id != 'undefined'){
                 $('input[name="group_id"]').val(id);
                 $('input[name="group"]').val(group);
+                $('input[name="sort"]').val(sort);
             }
 
         });

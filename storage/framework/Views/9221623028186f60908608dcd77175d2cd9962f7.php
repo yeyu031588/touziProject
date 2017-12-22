@@ -23,18 +23,23 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">添加分组</h4>
+                    <h4 class="modal-title" id="myModalLabel">添加路由</h4>
                 </div>
                 <div class="modal-body">
                     <form class="layui-form" id='form' style="width:80%;" onsubmit="return false;">
-                        <input type="hidden" value="<?php echo e(isset($data['role_id']) ? $data['role_id'] : ''); ?>" name="role_id"/>
+                        <input type="hidden" value="" name="route_id"/>
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">分组</label>
                                 <div class="layui-input-block">
-                                    <select name="status" class="userStatus">
-                                        <option value="1" <?php if(isset($data['status']) && $data['status']==1)echo 'selected';?>>审核</option>
-                                        <option value="0" <?php if(isset($data['status']) && $data['status']==0)echo 'selected';?>>未审核</option>
+                                    <select name="group_id" class="userStatus" id="sgroup">
+                                        <?php if(isset($group)): ?>
+
+                                            <?php $__empty_1 = true; foreach($group as $val): $__empty_1 = false; ?>
+                                                <option value="<?php echo e($val['id']); ?>" ><?php echo e($val['group']); ?></option>
+                                            <?php endforeach; if ($__empty_1): ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                             </div>
@@ -42,23 +47,23 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">标题</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="<?php echo e(isset($data['role_name']) ? $data['role_name'] : ''); ?>" name="role_name">
+                                <input type="text" class="layui-input" value="" name="title">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">URL</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" value="<?php echo e(isset($data['role_name']) ? $data['role_name'] : ''); ?>" name="role_name">
+                                <input type="text" class="layui-input" value="" name="url">
                             </div>
                         </div>
 
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <label class="layui-form-label">状态</label>
+                                <label class="layui-form-label">类型</label>
                                 <div class="layui-input-block">
-                                    <select name="status" class="userStatus">
-                                        <option value="1" <?php if(isset($data['status']) && $data['status']==1)echo 'selected';?>>审核</option>
-                                        <option value="0" <?php if(isset($data['status']) && $data['status']==0)echo 'selected';?>>未审核</option>
+                                    <select name="type" class="userStatus" id="stype">
+                                        <option value="1">默认可见</option>
+                                        <option value="0">默认不可见</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,7 +73,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">提交更改</button>
+                    <button type="button" class="btn btn-primary" id="sub">保存</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -76,15 +81,35 @@
 
     <div class="layui-form users_list">
         <table class="layui-table">
-            <thead>
-            <tr>
-                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-                <th>角色</th>
-                <th>状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
             <tbody class="users_content">
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+            <?php if(isset($group)): ?>
+
+                <?php $__empty_1 = true; foreach($group as $val): $__empty_1 = false; ?>
+                    <tr>
+                        <td colspan="4" align="left"><?php echo e($val['group']); ?></td>
+                    </tr>
+
+                    <?php if(isset($val['urls'])): ?>
+
+                        <?php $__empty_2 = true; foreach($val['urls'] as $value): $__empty_2 = false; ?>
+                            <tr>
+                                <td>---------|</td>
+                                <td colspan="2">Title:<?php echo e($value['title']); ?>  URL:<?php echo e($value['url']); ?></td>
+                                <td><a data-id="<?php echo e($value['route_id']); ?>" data-title="<?php echo e($value['title']); ?>" data-url="<?php echo e($value['url']); ?>" data-type="<?php echo e($value['type']); ?>" class="layui-btn layui-btn-mini" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($value['route_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
+                            </tr>
+                        <?php endforeach; if ($__empty_2): ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <tr>
+                        <td colspan="4"></td>
+                    </tr>
+                <?php endforeach; if ($__empty_1): ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
 
             <?php if(isset($data)): ?>
 
@@ -92,6 +117,12 @@
 
                     <tr>
                         <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="<?php echo e($val['role_id']); ?>"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
+                        <td><?php echo e($val['role_name']); ?></td>
+                        <td><?php echo e($status[$val['status']]); ?></td>
+                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['role_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
+                    </tr>
+                    <tr>
+                        <td>---------></td>
                         <td><?php echo e($val['role_name']); ?></td>
                         <td><?php echo e($status[$val['status']]); ?></td>
                         <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['role_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
@@ -186,7 +217,7 @@
                 var _this = $(this);
                 layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
                     var id = _this.attr("data-id");
-                    $.post('/Admin/dropRole',{role_id:id},function(data){
+                    $.post('/Admin/dropRoute',{id:id},function(data){
                         if(data.status){
                             _this.parents("tr").remove();
                             layer.close(index);
@@ -195,6 +226,37 @@
 
                 });
             })
+
+
+            $('#sub').click(function(){
+                $.ajax({
+                    type: 'post',
+                    url: '/Admin/editRoute',
+                    data: $("#form").serialize(),
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.status == '200'){
+                            layer.msg("编辑成功");
+                            location.reload();
+                        }else{
+                            layer.msg(data.msg);
+
+                        }
+                    }
+                })
+            })
+
+            $('#myModal').on('show.bs.modal', function (event) {
+                var a = $(event.relatedTarget)
+                var id = a.data('id'),title = a.data('title'),url = a.data('url'),type = a.data('type');
+                if(id != 'undefined'){
+//                    $("#sgroup").find("option").eq(2).attr("selected","selected")
+                    $('input[name="title"]').val(title);
+                    $('input[name="url"]').val(url);
+                    $('input[name="route_id"]').val(id);
+                }
+
+            });
 
 
         })

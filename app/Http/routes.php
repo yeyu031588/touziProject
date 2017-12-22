@@ -23,29 +23,36 @@ Route::group(['namespace'=>'Home','middleware'=>'user'],function(){
 Route::group(['namespace'=>'Admin','middleware'=>'admin'],function(){
     Route::get('/Admin','IndexController@index');
     Route::get('/Admin/main','IndexController@main');
+    //会员
     Route::get('/Admin/user','UserController@index');
     Route::any('/Admin/newuser','UserController@newuser');
     Route::any('/Admin/user/profile','UserController@profile');
     Route::any('/Admin/user/drop','UserController@drop');
     Route::any('/Admin/user/registerCount','UserController@registerCount');
     Route::post('/Admin/user/modify','UserController@modify');
-    Route::any('/Admin/grant/role','GrantController@role');
-    Route::any('/Admin/grant/addRole','GrantController@addRole');
-    Route::any('/Admin/grant/dropRole','GrantController@dropRole');
-    Route::any('/Admin/route','RouteController@routeList');
+    //管理员
     Route::any('/Admin/adminuser','UserController@adminUser');
     Route::any('/Admin/adminprofile','UserController@adminprofile');
     Route::post('/Admin/adminmodify','UserController@adminmodify');
     Route::get('/Admin/addadmin','UserController@addadmin');
     Route::post('/Admin/dropAdmin','UserController@dropAdmin');
+    //角色
     Route::get('/Admin/role','UserController@role');
     Route::post('/Admin/dropRole','UserController@dropRole');
     Route::any('/Admin/editRole','UserController@editRole');
+
+    //路由
     Route::any('/Admin/routes','RouteController@routeList');
     Route::post('/Admin/editRoute','RouteController@editRoute');
     Route::post('/Admin/dropRoute/{cid?}','RouteController@dropRoute');
     Route::any('/Admin/routeGroup','RouteController@routeGroup');
     Route::any('/Admin/editGroup','RouteController@editGroup');
+    Route::any('/Admin/dropGroup','RouteController@dropGroup');
+
+    //路由权限
+    Route::any('/Admin/permissions','RouteController@permissions');
+    Route::post('/Admin/rolePremission','RouteController@rolePremission');
+
 
 
     //内容
@@ -53,7 +60,7 @@ Route::group(['namespace'=>'Admin','middleware'=>'admin'],function(){
     Route::any('/Admin/content/add','ContentController@add');
     Route::any('/Admin/content/detail/{id?}','ContentController@detail');
     Route::post('/Admin/content/modify','ContentController@modify');
-
+    //评论
     Route::get('/Admin/commentList','CommentController@commentList');
 
     Route::get('/Admin/onlineAppointment','SystemController@onlineAppointment');

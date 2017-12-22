@@ -35,7 +35,7 @@
                         <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="{{$val['role_id']}}"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
                         <td>{{$val['role_name']}}</td>
                         <td>{{$status[$val['status']]}}</td>
-                        <td><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['role_id']}}"><i class="layui-icon"></i> 删除</a></td>
+                        <td><a href="<?php echo URL::action('Admin\RouteController@permissions',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 权限</a><a href="<?php echo URL::action('Admin\UserController@editRole',['id'=>$val['role_id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="{{$val['role_id']}}"><i class="layui-icon"></i> 删除</a></td>
                     </tr>
                 @empty
                 @endforelse

@@ -28,7 +28,6 @@
                 <th>ID</th>
                 <th>状态</th>
                 <th>发布人</th>
-                <th>手机号</th>
                 <th>更新时间</th>
                 <th>操作</th>
             </tr>
@@ -44,7 +43,6 @@
                     <td><?php echo e($val['id']); ?></td>
                     <td><?php echo e($status[$val['status']]); ?></td>
                     <td><?php echo e($val['username']); ?></td>
-                    <td><?php echo e($val['tel']); ?></td>
                     <td><?php echo e(date('Y-m-d H:i:s',$val['time'])); ?></td>
                     <td><a href="<?php echo URL::action('Admin\SystemController@appointDetail',['id'=>$val['id']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['id']); ?>"><i class="layui-icon"></i> 删除</a></td>
                 </tr>

@@ -18,6 +18,9 @@ layui.config({
                 if(data.status == '200'){
                     layer.msg("编辑成功");
                     location.reload();
+                }else{
+                    layer.msg(data.msg);
+
                 }
             }
         })

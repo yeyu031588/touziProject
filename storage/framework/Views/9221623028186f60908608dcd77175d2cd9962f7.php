@@ -32,8 +32,9 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">分组</label>
                                 <div class="layui-input-block">
-                                    <select name="group_id" class="userStatus" id="sgroup">
-                                        <?php if(isset($group)): ?>
+                                    <select name="group_id" class="userStatus" id="group">
+                                        <option value="0" >选择</option>
+                                    <?php if(isset($group)): ?>
 
                                             <?php $__empty_1 = true; foreach($group as $val): $__empty_1 = false; ?>
                                                 <option value="<?php echo e($val['id']); ?>" ><?php echo e($val['group']); ?></option>
@@ -98,7 +99,7 @@
                             <tr>
                                 <td>---------|</td>
                                 <td colspan="2">Title:<?php echo e($value['title']); ?>  URL:<?php echo e($value['url']); ?></td>
-                                <td><a data-id="<?php echo e($value['route_id']); ?>" data-title="<?php echo e($value['title']); ?>" data-url="<?php echo e($value['url']); ?>" data-type="<?php echo e($value['type']); ?>" class="layui-btn layui-btn-mini" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($value['route_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
+                                <td><a data-group="<?php echo e($value['group_id']); ?>" data-id="<?php echo e($value['route_id']); ?>" data-title="<?php echo e($value['title']); ?>" data-url="<?php echo e($value['url']); ?>" data-type="<?php echo e($value['type']); ?>" class="layui-btn layui-btn-mini" data-toggle="modal" data-target="#myModal"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($value['route_id']); ?>"><i class="layui-icon"></i> 删除</a></td>
                             </tr>
                         <?php endforeach; if ($__empty_2): ?>
                         <?php endif; ?>
@@ -248,16 +249,16 @@
 
             $('#myModal').on('show.bs.modal', function (event) {
                 var a = $(event.relatedTarget)
-                var id = a.data('id'),title = a.data('title'),url = a.data('url'),type = a.data('type');
+                var id = a.data('id'),title = a.data('title'),url = a.data('url'),type = a.data('type'),group_id=a.data('group');
                 if(id != 'undefined'){
-//                    $("#sgroup").find("option").eq(2).attr("selected","selected")
                     $('input[name="title"]').val(title);
                     $('input[name="url"]').val(url);
                     $('input[name="route_id"]').val(id);
+                    $('#group').val(group_id);
+
                 }
 
             });
-
 
         })
     </script>

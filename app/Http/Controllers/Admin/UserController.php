@@ -15,11 +15,54 @@ class UserController extends Controller
     //用户列表
     public function index(Request $request)
     {
+        $admin_id = $request->session()->get('admin_id');
+        $is_admin = $request->session()->get('is_admin');
+        if($is_admin){
+            $map = [];
+        }else{
+            $map = ['to_id'=>$admin_id];
+        }
+        $resource = DB::table('admin_user')->orderBy('userid','desc')->where(array('is_resource'=>1))->select()->get();
+        $admin = [];
+        foreach($resource as $val){
+            $admin[$val['userid']] = $val['username'];
+        }
         $input = $request->all();
         $kw = isset($input['kw'])?$input['kw']:'';
-        $user = DB::table('member')->orderBy('id','desc')->where('username', 'like', $kw.'%')->select()->paginate(15);
+        $user = DB::table('member')->orderBy('id','desc')->where($map)->where('username', 'like', $kw.'%')->orwhere('mobile', 'like', $kw.'%')->select()->paginate(15);
         $status = ['未审核','已审核'];
-        return View('admin.user',['user'=>$user,'status'=>$status]);
+        return View('admin.user',['admin'=>$admin,'user'=>$user,'status'=>$status,'resource'=>$resource,'kw'=>$kw]);
+    }
+
+    //分配
+    public function distribution(Request $request){
+        $input = $request->all();
+        $data = array(
+            'to_id' => $input['admin_id'],
+            'last_id' => $input['to'],
+        );
+
+        $result = DB::table('member')->where('id',$input['userid'])->update($data);
+        if($result !== false){
+            echo json_encode(['status'=>200]);
+            exit;
+        }
+    }
+
+
+    public function trade(Request $request){
+        $id = $request->input('id');
+        $resource = DB::table('user_count')->orderBy('id','desc')->where(array('userid'=>$id))->select()->paginate(15);
+        return View('admin.user_trade',['data'=>$resource,'id'=>$id]);
+    }
+
+    public function alltrade(Request $request){
+        $d = $request->input('d')? $request->input('d'):3;
+        $time = time() - (3600*24*$d);
+        $sql = "select *,count(*) as seeNum from xiao_user_count where cid!=0 AND time >= {$time} group by cid order by seeNum desc limit 0,100";
+        $resource = DB::select($sql);
+        return View('admin.user_alltrade',['data'=>$resource,'d'=>$d]);
+
     }
 
     public function newuser(Request $request)
@@ -69,8 +112,8 @@ class UserController extends Controller
                 'email' => $input['email'],
                 'status' => $input['status'],
                 'email' => $input['email'],
+                'mark' => trim($input['mark']),
             );
-
             if($input['password']){
                 $data['password'] = $input['password'];
 
@@ -165,7 +208,8 @@ class UserController extends Controller
     }
 
     public function addadmin(Request $request){
-        return View('admin.adminuser_edit');
+        $roles = DB::table('admin_role')->orderBy('role_id','desc')->where(array())->select()->get();
+        return View('admin.adminuser_edit',['role'=>$roles]);
 
     }
 
@@ -183,12 +227,17 @@ class UserController extends Controller
         $data = array(
             'username' => $input['username'],
             'role' => $input['role'],
-            'password' => md5(md5($input['password'])),
             'status' => $input['status'],
+            'is_admin' => $input['is_admin'],
+            'is_resource' => $input['is_resource'],
         );
         if($input['id'] != ''){
+            if(!empty($input['password'])){
+                $data['password'] = md5(md5($input['repassword']));
+            }
             $result = DB::table('admin_user')->where('userid',$input['id'])->update($data);
         }else{
+            $data['password'] = md5(md5($input['password']));
             $result = DB::table('admin_user')->insert($data);
 
         }

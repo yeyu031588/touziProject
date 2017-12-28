@@ -4,6 +4,7 @@
         @media(max-width:1240px){
             .layui-form-item .layui-inline{ width:100%; float:none; }
         }
+        .layui-form-label{width: 100px;}
     </style>
 <?php echo $__env->yieldSection(); ?>
 
@@ -25,8 +26,8 @@
                     <select name="role" class="userStatus">
                         <?php if(isset($role)): ?>
 
-                            <?php $__empty_1 = true; foreach($role as $val): $__empty_1 = false; ?>
-                                <option value="<?php echo e($val['role_id']); ?>" ><?php echo e($val['role_name']); ?></option>
+                            <?php $__empty_1 = true; foreach($role as $key=>$val): $__empty_1 = false; ?>
+                                <option value="<?php echo e(isset($val['role_id']) ? $val['role_id'] : ''); ?>" ><?php echo e(isset($val['role_name']) ? $val['role_name'] : ''); ?></option>
                             <?php endforeach; if ($__empty_1): ?>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -34,12 +35,24 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" placeholder="请输入密码" value="<?php echo e(isset($data['password']) ? $data['password'] : ''); ?>" name="password">
+        <?php if(!isset($data)): ?>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" placeholder="请输入密码" value="<?php echo e(isset($data['password']) ? $data['password'] : ''); ?>" name="password">
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
+        <?php if(isset($data)): ?>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">新密码</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" placeholder="请输入密码" value="" name="repassword">
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div class="layui-form-item">
             <div class="layui-inline">
@@ -48,6 +61,29 @@
                     <select name="status" class="userStatus">
                         <option value="1" <?php if(isset($data) && $data['status']==1)echo 'selected';?>>审核</option>
                         <option value="0" <?php if(isset($data) && $data['status']==0)echo 'selected';?>>未审核</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">超级管理</label>
+                <div class="layui-input-block">
+                    <select name="is_admin" class="userStatus">
+                        <option value="0" <?php if(isset($data) && $data['is_admin']==0)echo 'selected';?>>否</option>
+                        <option value="1" <?php if(isset($data) && $data['is_admin']==1)echo 'selected';?>>是</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">会员分配</label>
+                <div class="layui-input-block">
+                    <select name="is_resource" class="userStatus">
+                        <option value="0" <?php if(isset($data) && $data['is_resource']==0)echo 'selected';?>>无</option>
+                        <option value="1" <?php if(isset($data) && $data['is_resource']==1)echo 'selected';?>>有</option>
                     </select>
                 </div>
             </div>
@@ -84,6 +120,9 @@
                         if(data.status == '200'){
                             layer.msg("编辑成功");
                             location.reload();
+                        }else{
+                            layer.msg(data.msg);
+
                         }
                     }
                 })

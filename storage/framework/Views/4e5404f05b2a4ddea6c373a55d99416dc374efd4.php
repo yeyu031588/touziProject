@@ -32,7 +32,7 @@
                 <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
             </div>
             <div class="panel_word userAll">
-                <span></span>
+                <span><?php echo e($data['new_user']); ?></span>
                 <cite>新增人数</cite>
             </div>
         </a>
@@ -43,7 +43,7 @@
                 <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
             </div>
             <div class="panel_word userAll">
-                <span></span>
+                <span><?php echo e($data['user_number']); ?></span>
                 <cite>用户总数</cite>
             </div>
         </a>
@@ -65,7 +65,7 @@
                 <i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
             </div>
             <div class="panel_word waitNews">
-                <span></span>
+                <span><?php echo e($data['content_wait']); ?></span>
                 <cite>待审核文章</cite>
             </div>
         </a>
@@ -76,7 +76,7 @@
                 <i class="iconfont icon-text" data-icon="icon-text"></i>
             </div>
             <div class="panel_word allNews">
-                <span></span>
+                <span><?php echo e($data['content_number']); ?></span>
                 <em>文章总数</em>
                 <cite>文章列表</cite>
             </div>
@@ -94,32 +94,32 @@
         <tbody>
         <tr>
             <td>当前版本</td>
-            <td class="version"></td>
+            <td class="version">1.0</td>
         </tr>
         <tr>
             <td>开发作者</td>
-            <td class="author1">yohance</td>
+            <td class="author1">touzi</td>
         </tr>
         <tr>
             <td>网站首页</td>
-            <td class="homePage"></td>
+            <td class="homePage">www.touzitop.com</td>
         </tr>
         <tr>
             <td>服务器环境</td>
-            <td class="server"></td>
+            <td class="server">linux</td>
         </tr>
         <tr>
             <td>数据库版本</td>
-            <td class="dataBase"></td>
+            <td class="dataBase">5.4</td>
         </tr>
         <tr>
             <td>最大上传限制</td>
-            <td class="maxUpload"></td>
+            <td class="maxUpload">20M</td>
         </tr>
-        <tr>
-            <td>当前用户权限</td>
-            <td class="userRights"></td>
-        </tr>
+        <?php /*<tr>*/ ?>
+            <?php /*<td>当前用户权限</td>*/ ?>
+            <?php /*<td class="userRights"></td>*/ ?>
+        <?php /*</tr>*/ ?>
         </tbody>
     </table>
 </blockquote>
@@ -161,6 +161,6 @@
 </div>
 
 <script type="text/javascript" src="../layui/layui.js"></script>
-<script type="text/javascript" src="../js/main.js"></script>
+<?php /*<script type="text/javascript" src="../js/main.js"></script>*/ ?>
 </body>
 </html>

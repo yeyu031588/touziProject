@@ -20,36 +20,53 @@ class AdminAuth
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if(!$request->session()->get('admin_id')){
            return redirect()->guest('AdminLogin');
         }
         $userid = $request->session()->get('admin_id');
         $role_id = $request->session()->get('role');
+        $is_admin = $request->session()->get('is_admin');
         $route = $request->path();
-        if($role_id == 1){
+        if($is_admin == 1){
             return $next($request);
         }
-        $this->route($userid,$role_id,$route,$next,$request);
+        if(isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"])=="xmlhttprequest"){
+            $type =  'ajax';
+        }else{
+            $type =  'normal';
+        };
+        $this->route($userid,$role_id,$route,$next,$request,$type);
         return $next($request);
 
     }
 
-    public function route($userid,$role_id,$route,$next,$request){
+    public function route($userid,$role_id,$route,$next,$request,$type){
         $result = DB::table('route')->where(array('url'=>$route))->get();
         if($result){
             $per = DB::table('permissions')->where(array('role_id'=>$role_id))->get();
             if(!$per){
-                echo 'no permissions';
-                exit;
+                if($type=='ajax'){
+                    echo json_encode(['status'=>0,'msg'=>'没权限']);
+                    exit;
+                }else{
+                    echo 'no permissions';
+                    exit;
+                }
+
             }
-            $per = json_decode($per);
-            if(in_array($route,$per)){
+            $per = json_decode($per[0]['permissions']);
+            if(in_array($result[0]['route_id'],$per)){
                 return $next($request);
             }else{
-                echo 'no permissions';
-                exit;
+                if($type=='ajax'){
+                    echo json_encode(['status'=>0,'msg'=>'没权限']);
+                    exit;
+                }else{
+                    echo 'no permissions';
+                    exit;
+                }
             }
 
         }else{

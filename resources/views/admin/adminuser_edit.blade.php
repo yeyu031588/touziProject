@@ -5,6 +5,7 @@
         @media(max-width:1240px){
             .layui-form-item .layui-inline{ width:100%; float:none; }
         }
+        .layui-form-label{width: 100px;}
     </style>
 @show
 
@@ -26,8 +27,8 @@
                     <select name="role" class="userStatus">
                         @if (isset($role))
 
-                            @forelse($role as $val)
-                                <option value="{{$val['role_id']}}" >{{$val['role_name']}}</option>
+                            @forelse($role as $key=>$val)
+                                <option value="{{$val['role_id'] or ''}}" >{{$val['role_name'] or ''}}</option>
                             @empty
                             @endforelse
                         @endif
@@ -35,12 +36,24 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" placeholder="请输入密码" value="{{$data['password'] or ''}}" name="password">
+        @if (!isset($data))
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" placeholder="请输入密码" value="{{$data['password'] or ''}}" name="password">
+                </div>
             </div>
-        </div>
+        @endif
+        @if (isset($data))
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">新密码</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" placeholder="请输入密码" value="" name="repassword">
+                </div>
+            </div>
+        @endif
 
         <div class="layui-form-item">
             <div class="layui-inline">
@@ -49,6 +62,29 @@
                     <select name="status" class="userStatus">
                         <option value="1" <?php if(isset($data) && $data['status']==1)echo 'selected';?>>审核</option>
                         <option value="0" <?php if(isset($data) && $data['status']==0)echo 'selected';?>>未审核</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">超级管理</label>
+                <div class="layui-input-block">
+                    <select name="is_admin" class="userStatus">
+                        <option value="0" <?php if(isset($data) && $data['is_admin']==0)echo 'selected';?>>否</option>
+                        <option value="1" <?php if(isset($data) && $data['is_admin']==1)echo 'selected';?>>是</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">会员分配</label>
+                <div class="layui-input-block">
+                    <select name="is_resource" class="userStatus">
+                        <option value="0" <?php if(isset($data) && $data['is_resource']==0)echo 'selected';?>>无</option>
+                        <option value="1" <?php if(isset($data) && $data['is_resource']==1)echo 'selected';?>>有</option>
                     </select>
                 </div>
             </div>
@@ -85,6 +121,9 @@
                         if(data.status == '200'){
                             layer.msg("编辑成功");
                             location.reload();
+                        }else{
+                            layer.msg(data.msg);
+
                         }
                     }
                 })

@@ -66,6 +66,13 @@
                 <input type="text" class="layui-input" value="<?php echo e($data['mobile']); ?>" name="mobile">
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入备注信息" name="mark" class="layui-textarea"><?php echo e($data['mark']); ?></textarea>
+            </div>
+        </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="addUser" id="sub">立即提交</button>

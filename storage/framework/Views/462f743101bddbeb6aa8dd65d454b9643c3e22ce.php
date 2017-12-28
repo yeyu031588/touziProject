@@ -4,42 +4,52 @@
 <?php $__env->startSection('title', '股权项目'); ?>
 <?php $__env->startSection('content'); ?>
     <blockquote class="layui-elem-quote news_search">
+        <?php /*<div class="layui-inline">*/ ?>
+            <?php /*<a class="layui-btn" style="background-color:#5FB878"><?php echo e($cate[$cid]); ?></a>*/ ?>
+        <?php /*</div>*/ ?>
+        <form action="" id="searchForm">
+
         <div class="layui-inline">
-            <a class="layui-btn" style="background-color:#5FB878"><?php echo e($cate[$cid]); ?></a>
+            <div class="layui-input-inline">
+                <select name="cate" lay-verify="required" class="layui-input search_input" style="width: 7em;">
+                <?php if(isset($cate)): ?>
+
+                    <?php $__empty_1 = true; foreach($cate as $key=>$val): $__empty_1 = false; ?>
+                        <option value="<?php echo e($key); ?>" <?php if($cid == $key)echo 'selected';?>><?php echo e($val); ?></option>
+                    <?php endforeach; if ($__empty_1): ?>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </select>
+        </div>
         </div>
         <div class="layui-inline">
-            <form action="" id="searchForm">
+            <div class="layui-input-inline">
+                <select name="status" lay-verify="required" class="layui-input search_input" style="width: 7em;">
+                    <option value="-1" <?php if($status == '-1')echo 'selected';?>>全部</option>
+                    <option value="1" <?php if($status == '1')echo 'selected';?>>正常</option>
+                    <option value="2" <?php if($status == '2')echo 'selected';?>>推荐</option>
+                    <option value="3" <?php if($status == '3')echo 'selected';?>>头条</option>
+                    <option value="0" <?php if($status == '0')echo 'selected';?>>未审核</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
                 <div class="layui-input-inline">
                     <input type="hidden" name="cid" value="<?php echo e($cid); ?>"/>
                     <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="kw">
                 </div>
                 <a class="layui-btn search_btn">搜索标题</a>
-            </form>
+
         </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-normal" href="<?php echo e(url('/Admin/content/add')); ?>?cid=<?php echo e($cid); ?>">添加项目</a>
             <?php /*<a class="layui-btn layui-btn-normal newsAdd_btn">添加项目</a>*/ ?>
         </div>
-        <?php /*<script>*/ ?>
-            <?php /*var cid = '<?php echo e($cid); ?>';*/ ?>
-        <?php /*</script>*/ ?>
-        <div class="layui-inline">
-            <a class="layui-btn audit_btn">审核项目</a>
-        </div>
         <div class="layui-inline">
             <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
         </div>
-        <div class="layui-inline">
-            <div class="layui-input-inline">
-                <select name="status" lay-verify="required" class="layui-input search_input" style="width: 7em;">
-                    <option value="-1">全部</option>
-                    <option value="1">正常</option>
-                    <option value="2">推荐</option>
-                    <option value="3">头条</option>
-                    <option value="0">未审核</option>
-                </select>
-            </div>
-        </div>
+        </form>
+
         <!--
         <div class="layui-inline">
             <div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
@@ -81,7 +91,7 @@
         </table>
     </div>
     <div id="page">
-        <?php echo $data->render(); ?>
+        <?php echo $data->appends(['cate'=>$cid,'status'=>$status,'kw'=>$kw])->render(); ?>
     </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('extendJs'); ?>

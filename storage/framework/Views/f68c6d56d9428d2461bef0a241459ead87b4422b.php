@@ -34,9 +34,21 @@
                 <tr>
                     <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose" value="<?php echo e($val['userid']); ?>"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div></td>
                     <td><?php echo e($val['username']); ?></td>
-                    <td><?php echo e($role[$val['role']]); ?></td>
+                    <?php if($val['is_admin'] == 1): ?>
+                        <td>总管理(默认)</td>
+                    <?php else: ?>
+                        <td><?php echo e($role[$val['role']]); ?></td>
+
+                    <?php endif; ?>
                     <td><?php echo e($status[$val['status']]); ?></td>
-                    <td><a href="<?php echo URL::action('Admin\UserController@adminprofile',['id'=>$val['userid']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['userid']); ?>"><i class="layui-icon"></i> 删除</a></td>
+
+                    <?php if($val['is_admin'] == 1): ?>
+                        <td><a class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 不可操作</a></td>
+
+                    <?php else: ?>
+                        <td><a href="<?php echo URL::action('Admin\UserController@adminprofile',['id'=>$val['userid']]);?>" class="layui-btn layui-btn-mini"><i class="iconfont icon-edit"></i> 编辑</a><a class="layui-btn layui-btn-danger layui-btn-mini users_del" data-id="<?php echo e($val['userid']); ?>"><i class="layui-icon"></i> 删除</a></td>
+
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; if ($__empty_1): ?>
             <?php endif; ?>

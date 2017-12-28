@@ -28,6 +28,10 @@ class RouteController extends Controller
 
     public function editRoute(Request $request){
         $input = $request->all();
+        if(!isset($input['group_id'])){
+            echo json_encode(['status'=>0,'msg'=>'参数错误']);
+            exit;
+        }
         $data = array(
             'group_id' => intval($input['group_id']),
             'title' => trim($input['title']),
@@ -114,8 +118,12 @@ class RouteController extends Controller
 
     public function permissions(Request $request){
         $role_id = $request->input('id');
+        $per = [];
         $res = DB::table('permissions')->where(array('role_id'=>$role_id))->get();
-        $res = current($res);
+        if($res){
+            $res = current($res);
+            $per = json_decode($res['permissions']);
+        }
         $group = DB::table('route_group')->orderBy('sort','DESC')->orderBy('id','ASC')->get();
         foreach($group as &$val){
             $result = DB::table('route')->where(array('group_id'=>$val['id']))->get();
@@ -123,7 +131,7 @@ class RouteController extends Controller
         }
         $role = DB::table('admin_role')->where(array('role_id'=>$role_id))->get();
         $role = current($role);
-        return View('admin.permissions',['group'=>$group,'role'=>$role,'permissions'=>json_decode($res['permissions'])]);
+        return View('admin.permissions',['group'=>$group,'role'=>$role,'permissions'=>$per]);
     }
 
     public function rolePremission(Request $request){

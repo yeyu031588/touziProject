@@ -35,8 +35,9 @@ class ContentController extends Controller
         35 => '测试栏目',];
 
     //内容项目列表
-    public function lists($cid=1,Request $request)
+    public function lists(Request $request)
     {
+        $cid = $request->input('cid')?$request->input('cid'):1;
         $input = $request->all();
         $kw = isset($input['kw'])?$input['kw']:'';
         $map = array('catid'=>$cid);
@@ -54,8 +55,9 @@ class ContentController extends Controller
     }
 
 
-    public function detail($id=0,Request $request){
+    public function detail(Request $request){
         $data = [];
+        $id = $request->input('id');
         $info = DB::table('content')->where(array('id'=>$id))->select()->get();
         if($info[0]['catid']==1){
             $deal = DB::table('content_deal')->where(array('id'=>$id))->select()->get();
@@ -181,6 +183,20 @@ class ContentController extends Controller
     //根据不同分类获取自定义的值
     public function getSelfField($cid){
 
+    }
+
+    //所有分类文章
+    public function contents(Request $request){
+        $input = $request->all();
+        $cid = isset($input['cate'])?$input['cate']:1;
+        $kw = isset($input['kw'])?$input['kw']:'';
+        $status = isset($input['status'])?$input['status']:'-1';
+        $map = array('catid'=>$cid);
+        if($status != '-1'){
+            $map['status'] = $status;
+        }
+        $list = DB::table('content')->orderBy('id','desc')->where($map)->where('title', 'like', $kw.'%')->select()->paginate(15);
+        return view('admin.content',['data'=>$list,'cate'=>$this->cate,'cid'=>$cid,'status'=>$status,'kw'=>$kw]);
     }
 
 }

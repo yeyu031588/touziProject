@@ -121,33 +121,34 @@
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>会员管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user')); ?>">
-                                <cite>会员列表</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user/registerCount')); ?>">
-                                <cite>会员统计</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user')); ?>"><cite>会员列表</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user/registerCount')); ?>"><cite>注册统计</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/user/alltrade')); ?>"><cite>访问统计</cite></a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>内容管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/1')); ?>"><cite>股权项目</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/26')); ?>"><cite>专题项目</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/5')); ?>"><cite>视频中心</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/33')); ?>"><cite>企业栏目</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/3')); ?>"><cite>三板资讯</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/8')); ?>"><cite>三板头条</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/9')); ?>"><cite>行业解析</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/10')); ?>"><cite>政策解读</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/11')); ?>"><cite>大咖访谈</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/12')); ?>"><cite>学堂</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/4')); ?>"><cite>原创研究</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/13')); ?>"><cite>三板调研</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/14')); ?>"><cite>机构观点</cite></a></dd>
-                        <dd><a href="javascript:;"data-url="<?php echo e(url('/Admin/content/list/15')); ?>" ><cite>项目分析</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/16')); ?>"><cite>投资咨询</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/17')); ?>"><cite>投资要闻</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/18')); ?>"><cite>投资走向</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/19')); ?>"><cite>投资百科</cite></a></dd>
-                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/6')); ?>"><cite>行情中心</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/category')); ?>"><cite>分类管理</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/contents')); ?>"><cite>文章管理</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=1')); ?>"><cite>股权项目</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=26')); ?>"><cite>专题项目</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=5')); ?>"><cite>视频中心</cite></a></dd>
+                        <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=33')); ?>"><cite>企业栏目</cite></a></dd>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=3')); ?>"><cite>三板资讯</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=8')); ?>"><cite>三板头条</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=9')); ?>"><cite>行业解析</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=10')); ?>"><cite>政策解读</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=11')); ?>"><cite>大咖访谈</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=12')); ?>"><cite>学堂</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=4')); ?>"><cite>原创研究</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=13')); ?>"><cite>三板调研</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=14')); ?>"><cite>机构观点</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;"data-url="<?php echo e(url('/Admin/content/list?cid=15')); ?>" ><cite>项目分析</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=16')); ?>"><cite>投资咨询</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=17')); ?>"><cite>投资要闻</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=18')); ?>"><cite>投资走向</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=19')); ?>"><cite>投资百科</cite></a></dd>*/ ?>
+                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list?cid=6')); ?>"><cite>行情中心</cite></a></dd>*/ ?>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" ><i class="layui-icon">&#xe623;</i><cite>预约评论</cite></a>
@@ -158,48 +159,7 @@
                     <dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/buttonAppointment')); ?>"><cite>底部预约</cite></a></dd>
                     </dl>
                 </li>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/1')); ?>"><i class="layui-icon">&#xe623;</i> <cite>股权项目</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/26')); ?>"><i class="layui-icon">&#xe623;</i> <cite>专题栏目</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/3')); ?>"><i class="layui-icon">&#xe623;</i><cite>三板资讯</cite></a>*/ ?>
-                    <?php /*<dl class="layui-nav-child">*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/8')); ?>">*/ ?>
-                                <?php /*<cite>三板头条</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/9')); ?>">*/ ?>
-                                <?php /*<cite>行业解析</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/10')); ?>">*/ ?>
-                                <?php /*<cite>政策解读</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/11')); ?>">*/ ?>
-                                <?php /*<cite>大咖访谈</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/12')); ?>">*/ ?>
-                                <?php /*<cite>学堂</cite></a></dd>*/ ?>
-                    <?php /*</dl></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/4')); ?>"><i class="layui-icon">&#xe623;</i><cite>原创研究</cite></a>*/ ?>
-                    <?php /*<dl class="layui-nav-child">*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/13')); ?>">*/ ?>
-                                <?php /*<cite>三板调研</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/14')); ?>">*/ ?>
-                                <?php /*<cite>机构观点</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;"data-url="<?php echo e(url('/Admin/content/list/15')); ?>" >*/ ?>
-                                <?php /*<cite>项目分析</cite></a></dd>*/ ?>
-                    <?php /*</dl></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/5')); ?>"><i class="layui-icon">&#xe623;</i> <cite>视频中心</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/6')); ?>"><i class="layui-icon">&#xe623;</i> <cite>行情中心</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/16')); ?>"><i class="layui-icon">&#xe623;</i><cite>投资咨询</cite></a>*/ ?>
-                    <?php /*<dl class="layui-nav-child">*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/17')); ?>">*/ ?>
-                                <?php /*<cite>投资要闻</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/18')); ?>">*/ ?>
-                                <?php /*<cite>投资走向</cite></a></dd>*/ ?>
-                        <?php /*<dd><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/19')); ?>">*/ ?>
-                                <?php /*<cite>投资百科</cite></a></dd>*/ ?>
-                    <?php /*</dl></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/33')); ?>"><i class="layui-icon">&#xe623;</i> <cite>企业专栏</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/content/list/34')); ?>"><i class="layui-icon">&#xe623;</i> <cite>搜索栏目</cite></a></li>*/ ?>
 
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/onlineAppointment')); ?>"><i class="layui-icon">&#xe623;</i>   <cite>在线预约</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/commentList')); ?>"><i class="layui-icon">&#xe623;</i>   <cite>文章评论</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/complaint')); ?>"><i class="layui-icon">&#xe623;</i>   <cite>投诉建议</cite></a></li>*/ ?>
-                <?php /*<li class="layui-nav-item"><a href="javascript:;" data-url="<?php echo e(url('/Admin/buttonAppointment')); ?>"><i class="layui-icon">&#xe623;</i>   <cite>底部预约</cite></a></li>*/ ?>
                 <span class="layui-nav-bar" ></span>
             </ul>
 

@@ -35,7 +35,7 @@
                                 <div class="layui-input-block">
                                     <select name="group_id" class="userStatus" id="group">
                                         <option value="0" >选择</option>
-                                    @if (isset($group))
+                                        @if (isset($group))
 
                                             @forelse($group as $val)
                                                 <option value="{{$val['id']}}" >{{$val['group']}}</option>

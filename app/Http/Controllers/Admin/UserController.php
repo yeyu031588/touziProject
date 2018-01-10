@@ -23,30 +23,66 @@ class UserController extends Controller
             $map = ['to_id'=>$admin_id];
         }
         $resource = DB::table('admin_user')->orderBy('userid','desc')->where(array('is_resource'=>1))->select()->get();
-        $admin = [];
+        $admin=[];
         foreach($resource as $val){
             $admin[$val['userid']] = $val['username'];
         }
         $input = $request->all();
         $kw = isset($input['kw'])?$input['kw']:'';
-        $user = DB::table('member')->orderBy('id','desc')->where($map)->where('username', 'like', $kw.'%')->orwhere('mobile', 'like', $kw.'%')->select()->paginate(15);
+        $user = DB::table('member')->orderBy('id','desc')->where($map)->where(function ($query) use ($kw) {
+            $query->where('mobile'  , 'like', $kw)
+            ->orwhere('username', 'like', $kw);
+        })->select()->paginate(15);
         $status = ['未审核','已审核'];
         return View('admin.user',['admin'=>$admin,'user'=>$user,'status'=>$status,'resource'=>$resource,'kw'=>$kw]);
+    }
+
+    public function dis(Request $request){
+        $id = $request->input('id');
+        $result = DB::table('member')->where('id',$id)->get();
+        $resource = DB::table('admin_user')->orderBy('userid','desc')->where(array('is_resource'=>1))->select()->get();
+        $admin = [];
+        foreach($resource as $val){
+            $admin[$val['userid']] = $val['username'];
+        }
+        $log = DB::table('member_distribution')->where(array('user_id'=>$id))->get();
+        return View('admin.dis',['admin'=>$admin,'data'=>$result[0],'resource'=>$resource,'log'=>$log]);
     }
 
     //分配
     public function distribution(Request $request){
         $input = $request->all();
-        $data = array(
-            'to_id' => $input['admin_id'],
-            'last_id' => $input['to'],
-        );
-
-        $result = DB::table('member')->where('id',$input['userid'])->update($data);
-        if($result !== false){
-            echo json_encode(['status'=>200]);
+        $admin = $input['admin'];
+        if($input['admin_id']!= '-1'){
+            $res = DB::table('member')->where('id',$input['userid'])->get();
+            if($res[0]['to_id'] == $input['admin_id']){
+                echo json_encode(['status'=>1,'msg'=>'选择其他']);
+                exit;
+            }
+            $data = array(
+                'to_id' => $input['admin_id'],
+                'last_id' => $input['admin'],
+            );
+            $result = DB::table('member')->where('id',$input['userid'])->update($data);
+            $log = array(
+                'user_id'=>$input['userid'],
+                'admin_id'=>$input['admin_id'],
+                'last_id'=>$input['admin'],
+                'status'=>$input['admin_id']?1:2,
+                'time'=>time(),
+            );
+            DB::table('member_distribution')->insert($log);
+            if($result !== false){
+                echo json_encode(['status'=>200]);
+                exit;
+            }
+        }else{
+            echo json_encode(['status'=>1,'msg'=>'请选择']);
             exit;
         }
+
+
+
     }
 
 

@@ -57,6 +57,92 @@
     </div>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('extendJs'); ?>
-    <script type="text/javascript" src="<?php echo e(URL::asset('/js/admin/allUsers.js')); ?>"></script>
+
+    <script>
+        layui.config({
+            base : "js/"
+        }).use(['form','layer','jquery','laypage'],function(){
+            var form = layui.form(),
+                    layer = parent.layer === undefined ? layui.layer : parent.layer,
+                    laypage = layui.laypage,
+                    $ = layui.jquery;
+
+
+            //查询
+            $(".search_btn").click(function(){
+                var userArray = [];
+                //if($(".search_input").val() != ''){
+                $('#searchForm').submit();
+                //var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
+                //setTimeout(function(){
+                //
+                //    layer.close(index);
+                //},2000);
+                //}else{
+                //    layer.msg("请输入需要查询的内容");
+                //}
+            })
+
+
+            //批量删除
+            $(".batchDel").click(function(){
+                var $checkbox = $('.users_list tbody input[type="checkbox"][name="checked"]');
+                var $checked = $('.users_list tbody input[type="checkbox"][name="checked"]:checked');
+                if($checkbox.is(":checked")){
+                    layer.confirm('确定删除选中的信息？',{icon:3, title:'提示信息'},function(index){
+                        var index = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
+                        setTimeout(function(){
+                            //删除数据
+
+                            for(var j=0;j<$checked.length;j++){
+                                $.post(' /Admin/appointDrop',{id:$checked[j].value},function(data){
+                                    if(data.status){
+                                        _this.parents("tr").remove();
+                                        layer.close(index);
+                                    }
+                                },'json')
+                            }
+                            $('.users_list thead input[type="checkbox"]').prop("checked",false);
+                            form.render();
+                            layer.close(index);
+                            layer.msg("删除成功");
+                            location.reload();
+
+                        },2000);
+                    })
+                }else{
+                    layer.msg("请选择需要删除的文章");
+                }
+            })
+
+            //全选
+            form.on('checkbox(allChoose)', function(data){
+                var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
+                child.each(function(index, item){
+                    item.checked = data.elem.checked;
+                });
+                form.render('checkbox');
+            });
+
+
+
+            $("body").on("click",".users_del",function(){  //删除
+                var _this = $(this);
+                layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
+                    var id = _this.attr("data-id");
+                    $.post(' /Admin/appointDrop',{id:id},function(data){
+                        if(data.status){
+                            _this.parents("tr").remove();
+                            layer.close(index);
+                        }
+                    },'json')
+
+                });
+            })
+
+
+        })
+    </script>
+    <?php /*<script type="text/javascript" src="<?php echo e(URL::asset('/js/admin/allUsers.js')); ?>"></script>*/ ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.admin', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -33,6 +33,7 @@ Route::group(['namespace'=>'Admin','middleware'=>'admin'],function(){
     Route::post('/Admin/user/distribution','UserController@distribution');
     Route::get('/Admin/user/trade','UserController@trade');
     Route::get('/Admin/user/alltrade','UserController@alltrade');
+    Route::get('/Admin/user/dis','UserController@dis');
     //管理员
     Route::any('/Admin/adminuser','UserController@adminUser');
     Route::any('/Admin/adminprofile','UserController@adminprofile');
@@ -70,11 +71,23 @@ Route::group(['namespace'=>'Admin','middleware'=>'admin'],function(){
     Route::get('/Admin/comment/detail','CommentController@detail');
     Route::post('/Admin/comment/modify','CommentController@modify');
     Route::post('/Admin/comment/drop','CommentController@drop');
+    //在线预约
     Route::get('/Admin/onlineAppointment','SystemController@onlineAppointment');
     Route::get('/Admin/appointDetail','SystemController@appointDetail');
     Route::post('/Admin/appointModify','SystemController@appointModify');
+    Route::post('/Admin/appointDrop','SystemController@appointDrop');
+    //底部预约
     Route::get('/Admin/buttonAppointment','SystemController@buttonAppointment');
+    Route::get('/Admin/buttonAppDetail','SystemController@buttonAppDetail');
+    Route::post('/Admin/buttonAppDrop','SystemController@buttonAppDrop');
+    Route::post('/Admin/buttonAppModify','SystemController@buttonAppmodify');
+    Route::get('/Admin/buttonAppointment','SystemController@buttonAppointment');
+    Route::get('/Admin/buttonAppDrop','SystemController@buttonAppDrop');
+    //投诉建议
     Route::get('/Admin/complaint','SystemController@complaint');
+    Route::get('/Admin/complaint/detail','SystemController@complaintDetail');
+    Route::post('/Admin/complaint/modify','SystemController@complaintModify');
+    Route::post('/Admin/complaintDrop','SystemController@complaintDrop');
 
 });
 

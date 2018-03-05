@@ -5,14 +5,14 @@
 
     <title>中国新三板股权投资平台_第一股权网- 会员注册</title>
 
-    <link rel="stylesheet" href="{{ URL::asset('/css/home/login.css') }}" media="all" />
+    <link rel="stylesheet" href="<?php echo e(URL::asset('/css/home/login.css')); ?>" media="all" />
 
 </head>
 <body>
 <div id="content">
     <div id="top">
         <div class="top">
-            <div class="logo1"><a href="http://www.touzitop.com/" target="_blank"><img src="{{ URL::asset('/images/home/main_logo.png') }}" alt="" border="0"></a></div>
+            <div class="logo1"><a href="http://www.touzitop.com/" target="_blank"><img src="<?php echo e(URL::asset('/images/home/main_logo.png')); ?>" alt="" border="0"></a></div>
             <div class="iphone"> <img src="./home_files/phone.png" alt=""><a>咨询热线：400-805-4342</a> </div>
         </div>
     </div>
